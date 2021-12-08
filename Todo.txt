@@ -1,0 +1,15 @@
+[Add Features]
+-	Sound FX for ball bouncing
+-	Sound FX for getting a point
+
+[Fix Bugs]
+-	Ball can get stuck at top and bottom border
+
+[Test for bugs]
+-	All collision events may have a vulnerability
+
+[Possible Extra Features]
+-	Able to resize window, keeping aspect ratio and relative sizes intact
+-	Fullscreen
+-	Volume setting
+-	Account for delta time
