@@ -141,7 +141,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\C++\SFML-2.5.1\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;sfml-system.lib;sfml-window.lib;sfml-graphics.lib;sfml-main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;sfml-system.lib;sfml-system-d.lib;sfml-window.lib;sfml-window-d.lib;sfml-graphics.lib;sfml-graphics-d.lib;sfml-audio.lib;sfml-audio-d.lib;sfml-main.lib;sfml-main-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
