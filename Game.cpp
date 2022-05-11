@@ -22,7 +22,7 @@ Game::Game()
 	ballSpeed = ballSpeedOriginal;
 	speedIncrease = 0.5f;
 	ballDegreeMax = 40;
-	ballDir = (180 * (rand() % 2)) - (ballDegreeMax/2) + (rand() % ballDegreeMax); // In degrees
+	ballDir = (180 * (rand() % 2)) - (ballDegreeMax/2) + (rand() % ballDegreeMax);					// In degrees
 	ballSpeedX = ballSpeed * cos(ballDir * M_PI / 180);
 	ballSpeedY = ballSpeed * -sin(ballDir * M_PI / 180);
 
@@ -48,7 +48,8 @@ void Game::initBars()
 	// Right bar
 	bar2.setFillColor(sf::Color::White);
 	bar2.setSize(sf::Vector2f(20.f, 100.f));
-	bar2.setPosition(sf::Vector2f(static_cast<float>(width) - bar2.getSize().x - bar1.getPosition().x, bar1.getPosition().y));
+	bar2.setPosition(sf::Vector2f(static_cast<float>(width)
+		- bar2.getSize().x - bar1.getPosition().x, bar1.getPosition().y));
 
 	aiOffset = 0.8*((rand() % (static_cast<int>(bar2.getSize().y))) - bar2.getSize().y / 2.f);
 }
@@ -58,7 +59,8 @@ void Game::initBall()
 	ball.setFillColor(sf::Color::White);
 	ball.setRadius(6.f);
 	ball.setOrigin(sf::Vector2f(ball.getRadius(), ball.getRadius()));
-	ball.setPosition(sf::Vector2f(static_cast<float>(width) / 2.f, static_cast<float>(height) / 2.f));
+	ball.setPosition(sf::Vector2f(static_cast<float>(width)
+		/ 2.f, static_cast<float>(height) / 2.f));
 }
 
 void Game::initText()
@@ -68,41 +70,23 @@ void Game::initText()
 		std::cout << "Error: Could not load font" << std::endl;
 		notPaused = true;
 	}
-
-	///// Pause font /////
-	// select the font
-	txtPause.setFont(font);
-
-	// String to display
-	txtPause.setString("||");
-
-	// Char size
-	txtPause.setCharacterSize(72); // in px
-
-	sf::FloatRect textRect = txtPause.getLocalBounds();
-	txtPause.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+	
+	txtPause.setFont(font);																			// Select pause font
+	txtPause.setString("||");																		// String to display
+	txtPause.setCharacterSize(72);																	// Char size in px
+	sf::FloatRect txtRect = txtPause.getLocalBounds();
+	txtPause.setOrigin(txtRect.left + txtRect.width / 2.0f, txtRect.top + txtRect.height / 2.0f);
 	txtPause.setPosition(sf::Vector2f(width / 2.f, 2.f * height / 3.f));
+	txtPause.setFillColor(sf::Color::White);														// Set font color
 
-	// set the color
-	txtPause.setFillColor(sf::Color::White);
-
-	///// Score font /////
-	// select the font
-	txtScore.setFont(font);
-
-	// String to display
-	std::string text = std::to_string(scoreL)+" | "+ std::to_string(scoreR);
+	txtScore.setFont(font);																			// Select score font
+	std::string text = std::to_string(scoreL)+" | "+ std::to_string(scoreR);						// String to display
 	txtScore.setString(text);
-
-	// Char size
-	txtScore.setCharacterSize(100); // in px
-
-	textRect = txtScore.getLocalBounds();
-	txtScore.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+	txtScore.setCharacterSize(100);																	// Char size in px
+	txtRect = txtScore.getLocalBounds();
+	txtScore.setOrigin(txtRect.left + txtRect.width / 2.0f, txtRect.top + txtRect.height / 2.0f);
 	txtScore.setPosition(sf::Vector2f(width / 2.f, height / 6.f));
-
-	// set the color
-	txtScore.setFillColor(sf::Color::White);
+	txtScore.setFillColor(sf::Color::White);														// Set font color
 }
 
 void Game::initAudio()
@@ -128,39 +112,42 @@ void Game::resetAll()
 	initBall();
 
 	ballSpeed = ballSpeedOriginal;
-	ballDir = (180 * (rand() % 2)) - (ballDegreeMax / 2) + (rand() % ballDegreeMax); // In degrees
+	ballDir = (180 * (rand() % 2)) - (ballDegreeMax / 2) + (rand() % ballDegreeMax);				// In degrees
 	ballSpeedX = ballSpeed * cos(ballDir * M_PI / 180);
 	ballSpeedY = ballSpeed * -sin(ballDir * M_PI / 180);
 
 	notPaused = false;
 
-	// String to display
-	std::string text = std::to_string(scoreL) + " | " + std::to_string(scoreR);
+	std::string text = std::to_string(scoreL) + " | " + std::to_string(scoreR);						// String to display
 	txtScore.setString(text);
 }
 
 void Game::updateBars()
 {
-	///// Left bar /////
-	// Checking bar can move
-	float bar1Dir = pressedDown - pressedUp;
+	float bar1Dir = pressedDown - pressedUp;														// Checking left bar can move
 	float bar1Speed = moveSpeed * bar1Dir;
-	if (bar1.getPosition().y + bar1Speed >= 0 && bar1.getPosition().y + bar1Speed <= height - bar1.getSize().y)
+
+	if (bar1.getPosition().y + bar1Speed >= 0
+		&& bar1.getPosition().y + bar1Speed <= height - bar1.getSize().y)
+	{
 		bar1.move(0.f, bar1Speed);
+	}
 	else if (bar1Dir != 0)
 	{
-		bar1.move(0.f, bar1Dir * std::min(bar1.getPosition().y, height - bar1.getPosition().y - bar1.getSize().y));
+		bar1.move(0.f, bar1Dir * std::min(bar1.getPosition().y,
+			height - bar1.getPosition().y - bar1.getSize().y));
 	}
 
-	///// Right bar /////
-	float ballRelativeY = ball.getPosition().y - (bar2.getPosition().y + bar2.getSize().y / 2 + aiOffset);
-
-	float bar2Speed = std::min(std::abs(ballRelativeY), moveSpeed) * std::copysignf(1.f, ballRelativeY);
+	
+	float ballRelativeY = ball.getPosition().y - (bar2.getPosition().y								// Right bar
+		+ bar2.getSize().y / 2 + aiOffset);
+	float bar2Speed = std::min(std::abs(ballRelativeY), moveSpeed)
+		* std::copysignf(1.f, ballRelativeY);
 
 	bar2.move(0.f, bar2Speed);
 
-	// If right bar is heading towards out of bounds
-	if (bar2.getPosition().y + bar2.getSize().y > height)
+	
+	if (bar2.getPosition().y + bar2.getSize().y > height)											// If right bar is heading towards out of bounds
 		bar2.setPosition(sf::Vector2f(bar2.getPosition().x, height - bar2.getSize().y));
 	else if (bar2.getPosition().y < 0)
 		bar2.setPosition(sf::Vector2f(bar2.getPosition().x, 0));
@@ -168,19 +155,18 @@ void Game::updateBars()
 
 void Game::updateBall()
 {
-	// Hitting top or bottom
-	if (ball.getPosition().y >= height - ball.getRadius() || ball.getPosition().y <= ball.getRadius())
+	if (ball.getPosition().y >= height - ball.getRadius()											// Hitting top or bottom
+		|| ball.getPosition().y <= ball.getRadius())
 	{
 		ballSpeedY *= -1;
 		ballDir *= -1;
 		soundBallHit.play();
 	}
 
-	// Hitting left or right
-	if (ball.getPosition().x >= width - ball.getRadius() || ball.getPosition().x <= ball.getRadius())
+	if (ball.getPosition().x >= width - ball.getRadius()											// Hitting left or right
+		|| ball.getPosition().x <= ball.getRadius())
 	{
-		// Score increases
-		if (ball.getPosition().x <= ball.getRadius())
+		if (ball.getPosition().x <= ball.getRadius())												// Score increases
 		{
 			scoreR += 1;
 			soundPointUp.play();
@@ -193,15 +179,13 @@ void Game::updateBall()
 		resetAll();
 	}
 
-	// Hitting either bars
-	if (ball.getGlobalBounds().intersects(bar2.getGlobalBounds())
+	if (ball.getGlobalBounds().intersects(bar2.getGlobalBounds())									// Hitting either bars
 		|| ball.getGlobalBounds().intersects(bar1.getGlobalBounds()))
 	{
 		ballSpeedX *= -1.f;
 		float dif, maxDif, dirAdd, ratioSign;
 
-		// Hitting left player
-		if (ball.getGlobalBounds().intersects(bar1.getGlobalBounds()))
+		if (ball.getGlobalBounds().intersects(bar1.getGlobalBounds()))								// Hitting left player
 		{
 			dirAdd = 0.f;
 			ratioSign = 1.f;
@@ -211,8 +195,7 @@ void Game::updateBall()
 			soundBallHit.play();
 		}
 		else
-		// Hitting right player
-		{
+		{																							// Hitting right player
 			dirAdd = 180.f;
 			ratioSign = -1.f;
 
@@ -245,21 +228,19 @@ void Game::pollEvents()
 			break;
 		}
 	}
-	// Esc key
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))										// Esc key
 	{
 		window->close();
 		running = false;
 	}
 
-	// R Key
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R))											// R Key
 	{
 		resetAll();
 	}
 
-	// Space Key
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && !pausePressed)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) && !pausePressed)						// Space Key
 	{
 		notPaused = !notPaused;
 		pausePressed = true;
@@ -269,14 +250,12 @@ void Game::pollEvents()
 		pausePressed = false;
 	}
 
-	// Up key
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))											// Up key
 		pressedUp = 1.f;
 	else
 		pressedUp = 0.f;
 
-	// Down key
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))											// Down key
 		pressedDown = 1.f;
 	else
 		pressedDown = 0.f;
@@ -301,8 +280,7 @@ void Game::render()
 	window->draw(bar2);
 	window->draw(ball);
 
-	// Drawing text
-	if (!notPaused) window->draw(txtPause);
+	if (!notPaused) window->draw(txtPause);															// Drawing text
 	window->draw(txtScore);
 
 	window->display();
@@ -312,5 +290,9 @@ void Game::initWindow()
 {
 	window = new sf::RenderWindow(sf::VideoMode(width, height), title);
 	window->setFramerateLimit(fps);
+	sf::Image icon;
+	if (!icon.loadFromFile("icon/pong.png"))
+		exit(EXIT_FAILURE);
+	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	running = true;
 }

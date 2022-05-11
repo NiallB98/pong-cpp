@@ -1,3 +1,4 @@
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")									// Hide console when running compiled version
 #include "Game.h"
 
 int main()

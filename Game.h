@@ -12,12 +12,12 @@ class Game
 {
 private:
 	int width, height, fps, ballDegreeMax, scoreL, scoreR;
-	float moveSpeed, pressedUp, pressedDown, aiOffset, ballSpeed, ballSpeedOriginal, ballSpeedX, ballSpeedY, ballDir, speedIncrease;
+	float moveSpeed, pressedUp, pressedDown, aiOffset, ballSpeed,
+		ballSpeedOriginal, ballSpeedX, ballSpeedY, ballDir, speedIncrease;
 	const char* title;
 	bool notPaused, pausePressed;
 
-	// Sounds
-	sf::SoundBuffer bufferBallHit, bufferPointUp;
+	sf::SoundBuffer bufferBallHit, bufferPointUp;													// Sounds
 	sf::Sound soundBallHit, soundPointUp;
 	float volumeFX;
 
