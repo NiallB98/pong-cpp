@@ -169,7 +169,9 @@ DEL "$(TargetDir)*.pdb" /Q</Command>
     <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="icon\icon.ico" />
+    <Image Include="icon\icon.ico">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
     <Image Include="icon\icon.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
