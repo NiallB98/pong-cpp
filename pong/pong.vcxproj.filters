@@ -13,20 +13,14 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\resource">
-      <UniqueIdentifier>{84e2ae38-90ac-41cc-95e3-c60eddf12e7c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\game">
-      <UniqueIdentifier>{2fc183c3-107d-43ab-bc38-1dca3b23c93c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\game">
-      <UniqueIdentifier>{04054643-1fe0-4574-a940-77026ae307b0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files\images">
-      <UniqueIdentifier>{fdfe422f-1f42-4782-8662-ec9b1e2d95da}</UniqueIdentifier>
+      <UniqueIdentifier>{ee0305a1-4103-4ed4-99fe-8de505806bdf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\resource">
-      <UniqueIdentifier>{d476853b-017f-430c-8558-fe13887027ac}</UniqueIdentifier>
+    <Filter Include="Resource Files\sounds">
+      <UniqueIdentifier>{45bdfc45-eabe-4f97-a78e-323a45620bd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\fonts">
+      <UniqueIdentifier>{6ad6919f-79c7-41f4-8e85-60aeae4518dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,48 +28,47 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Source Files\game</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files\resource</Filter>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource3.h">
-      <Filter>Header Files\resource</Filter>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource1.h">
-      <Filter>Header Files\resource</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource2.h">
-      <Filter>Header Files\resource</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource4.h">
-      <Filter>Header Files\resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files\game</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Todo.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc">
-      <Filter>Resource Files\resource</Filter>
-    </ResourceCompile>
-    <ResourceCompile Include="pong.rc">
-      <Filter>Resource Files\resource</Filter>
+      <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="icon\pong.ico">
-      <Filter>Resource Files\images</Filter>
-    </Image>
     <Image Include="icon\icon.ico">
       <Filter>Resource Files\images</Filter>
     </Image>
+    <Image Include="icon\icon.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="audio\ballHit\ballHit.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+    <Media Include="audio\pointUp\pointUp.wav">
+      <Filter>Resource Files\sounds</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\bitFont.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>

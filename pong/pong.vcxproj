@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{a1c61f27-dcc1-4051-acf5-619403cbf454}</ProjectGuid>
+    <ProjectGuid>{a21ebaa1-0142-40b0-ac37-0e2127f00988}</ProjectGuid>
     <RootNamespace>pong</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -78,9 +78,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -116,20 +118,17 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:/C++/SFML-2.5.1/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\C++\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:/C++/SFML-2.5.1/lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-main-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\C++\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>openal32.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "C:\C++\SFML-2.5.1\bin\*d-2.dll" "$(TargetDir)" /Y
-xcopy "C:\C++\SFML-2.5.1\bin\openal32.dll" "$(TargetDir)" /Y
-xcopy "$(SolutionDir)fonts\*.*" "$(TargetDir)fonts" /Y /I /E
-xcopy "$(SolutionDir)icon\*.*" "$(TargetDir)icon" /Y /I /E
-xcopy "$(SolutionDir)audio\*.*" "$(TargetDir)audio" /Y /I /E</Command>
+      <Command>xcopy "C:\C++\SFML-2.5.1\bin\openal32.dll" "$(TargetDir)" /Y
+xcopy "C:\C++\SFML-2.5.1\bin\*-d-2.dll" "$(TargetDir)" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -140,32 +139,20 @@ xcopy "$(SolutionDir)audio\*.*" "$(TargetDir)audio" /Y /I /E</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\C++\SFML-2.5.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\C++\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\C++\SFML-2.5.1\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;sfml-system.lib;sfml-system-d.lib;sfml-window.lib;sfml-window-d.lib;sfml-graphics.lib;sfml-graphics-d.lib;sfml-audio.lib;sfml-audio-d.lib;sfml-main.lib;sfml-main-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\C++\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>openal32.lib;sfml-audio.lib;sfml-audio-d.lib;sfml-graphics.lib;sfml-graphics-d.lib;sfml-network.lib;sfml-network-d.lib;sfml-system.lib;sfml-system-d.lib;sfml-window.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "C:\C++\SFML-2.5.1\bin\*.dll" "$(TargetDir)" /Y
-xcopy "$(SolutionDir)fonts\*.*" "$(TargetDir)fonts" /Y /I /E
-xcopy "$(SolutionDir)icon\*.*" "$(TargetDir)icon" /Y /I /E
-xcopy "$(SolutionDir)audio\*.*" "$(TargetDir)audio" /Y /I /E
-
-del "$(TargetDir)*.pdb"
-del "$(TargetDir)*.ipdb"
-del "$(TargetDir)*.tlog"
-del "$(TargetDir)*.obj"
-del "$(TargetDir)*.iobj"
-del "$(TargetDir)*.res"
-del "$(TargetDir)*.recipe"
-del "$(TargetDir)*.log"
-del "$(TargetDir)*.txt"
-</Command>
+      <Command>XCOPY "C:\C++\SFML-2.5.1\bin\openal32.dll" "$(TargetDir)" /Y
+XCOPY "C:\C++\SFML-2.5.1\bin\*-2.dll" "$(TargetDir)" /Y
+DEL "$(TargetDir)*.pdb" /Q</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -177,19 +164,28 @@ del "$(TargetDir)*.txt"
     <ClInclude Include="resource.h" />
     <ClInclude Include="resource1.h" />
     <ClInclude Include="resource2.h" />
-    <ClInclude Include="resource3.h" />
-    <ClInclude Include="resource4.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Todo.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="pong.rc" />
     <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon\icon.ico" />
-    <Image Include="icon\pong.ico" />
+    <Image Include="icon\icon.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\bitFont.ttf">
+      <DeploymentContent>true</DeploymentContent>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="audio\ballHit\ballHit.wav">
+      <DeploymentContent>true</DeploymentContent>
+    </Media>
+    <Media Include="audio\pointUp\pointUp.wav">
+      <DeploymentContent>true</DeploymentContent>
+    </Media>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

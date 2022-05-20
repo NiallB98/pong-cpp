@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by pong.rc
+// Used by tetris.rc
 
 // Next default values for new objects
 // 

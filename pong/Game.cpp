@@ -22,7 +22,7 @@ Game::Game()
 	ballSpeed = ballSpeedOriginal;
 	speedIncrease = 0.5f;
 	ballDegreeMax = 40;
-	ballDir = (180 * (rand() % 2)) - (ballDegreeMax/2) + (rand() % ballDegreeMax);					// In degrees
+	ballDir = (180 * (rand() % 2)) - (ballDegreeMax / 2) + (rand() % ballDegreeMax);					// In degrees
 	ballSpeedX = ballSpeed * cos(ballDir * M_PI / 180);
 	ballSpeedY = ballSpeed * -sin(ballDir * M_PI / 180);
 
@@ -51,7 +51,7 @@ void Game::initBars()
 	bar2.setPosition(sf::Vector2f(static_cast<float>(width)
 		- bar2.getSize().x - bar1.getPosition().x, bar1.getPosition().y));
 
-	aiOffset = 0.8*((rand() % (static_cast<int>(bar2.getSize().y))) - bar2.getSize().y / 2.f);
+	aiOffset = 0.8 * ((rand() % (static_cast<int>(bar2.getSize().y))) - bar2.getSize().y / 2.f);
 }
 
 void Game::initBall()
@@ -70,7 +70,7 @@ void Game::initText()
 		std::cout << "Error: Could not load font" << std::endl;
 		notPaused = true;
 	}
-	
+
 	txtPause.setFont(font);																			// Select pause font
 	txtPause.setString("||");																		// String to display
 	txtPause.setCharacterSize(72);																	// Char size in px
@@ -80,7 +80,7 @@ void Game::initText()
 	txtPause.setFillColor(sf::Color::White);														// Set font color
 
 	txtScore.setFont(font);																			// Select score font
-	std::string text = std::to_string(scoreL)+" | "+ std::to_string(scoreR);						// String to display
+	std::string text = std::to_string(scoreL) + " | " + std::to_string(scoreR);						// String to display
 	txtScore.setString(text);
 	txtScore.setCharacterSize(100);																	// Char size in px
 	txtRect = txtScore.getLocalBounds();
@@ -138,7 +138,7 @@ void Game::updateBars()
 			height - bar1.getPosition().y - bar1.getSize().y));
 	}
 
-	
+
 	float ballRelativeY = ball.getPosition().y - (bar2.getPosition().y								// Right bar
 		+ bar2.getSize().y / 2 + aiOffset);
 	float bar2Speed = std::min(std::abs(ballRelativeY), moveSpeed)
@@ -146,7 +146,7 @@ void Game::updateBars()
 
 	bar2.move(0.f, bar2Speed);
 
-	
+
 	if (bar2.getPosition().y + bar2.getSize().y > height)											// If right bar is heading towards out of bounds
 		bar2.setPosition(sf::Vector2f(bar2.getPosition().x, height - bar2.getSize().y));
 	else if (bar2.getPosition().y < 0)
@@ -206,15 +206,17 @@ void Game::updateBall()
 
 		float ratio = dif / maxDif * 45.f;
 
-		ballDir = dirAdd + ratioSign*ratio;
+		ballDir = dirAdd + ratioSign * ratio;
 
 		ballSpeed += speedIncrease;
 
 		ballSpeedX = ballSpeed * static_cast<float>(cos(ballDir * M_PI / 180));
 		ballSpeedY = ballSpeed * -static_cast<float>(sin(ballDir * M_PI / 180));
 	}
-	
-	if (notPaused) ball.move(ballSpeedX, ballSpeedY);
+
+	if (notPaused)
+		ball.move(ballSpeedX, ballSpeedY);
+
 }
 
 void Game::pollEvents()
@@ -291,7 +293,7 @@ void Game::initWindow()
 	window = new sf::RenderWindow(sf::VideoMode(width, height), title);
 	window->setFramerateLimit(fps);
 	sf::Image icon;
-	if (!icon.loadFromFile("icon/pong.png"))
+	if (!icon.loadFromFile("icon/icon.png"))
 		exit(EXIT_FAILURE);
 	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	running = true;
