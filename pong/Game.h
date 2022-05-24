@@ -11,7 +11,7 @@
 class Game
 {
 private:
-	int width, height, fps, ballDegreeMax, scoreL, scoreR;
+	int width, height, fps, ballDegreeMax, scoreL, scoreR, speedIncrement;
 	float moveSpeed, pressedUp, pressedDown, aiOffset, ballSpeed,
 		ballSpeedOriginal, ballSpeedX, ballSpeedY, ballDir, speedIncrease;
 	const char* title;
@@ -49,5 +49,7 @@ public:
 	void pollEvents();
 	void update();
 	void render();
+
+	sf::Clock clock;																				// To keep track of delta time use "sf::Time dt = clock.getElapsedTime();" (Use dt.asMilliseconds())
 };
 

@@ -4,7 +4,7 @@ Game::Game()
 {
 	width = 1024;
 	height = 640;
-	fps = 60;
+	fps = 144;
 	title = "C++ Pong Game";
 
 	notPaused = false;
@@ -16,11 +16,12 @@ Game::Game()
 	scoreL = 0;
 	scoreR = 0;
 
-	moveSpeed = 6.f;
+	moveSpeed = 0.4f;
 
-	ballSpeedOriginal = 5.f;
+	ballSpeedOriginal = 0.4f;
 	ballSpeed = ballSpeedOriginal;
-	speedIncrease = 0.5f;
+	speedIncrease = 0.04f;
+	speedIncrement = 0;
 	ballDegreeMax = 40;
 	ballDir = (180 * (rand() % 2)) - (ballDegreeMax / 2) + (rand() % ballDegreeMax);					// In degrees
 	ballSpeedX = ballSpeed * cos(ballDir * M_PI / 180);
@@ -111,7 +112,10 @@ void Game::resetAll()
 	initBars();
 	initBall();
 
-	ballSpeed = ballSpeedOriginal;
+	float dt = static_cast<float>(clock.getElapsedTime().asMilliseconds());
+
+	ballSpeed = ballSpeedOriginal * dt;
+	speedIncrement = 0;
 	ballDir = (180 * (rand() % 2)) - (ballDegreeMax / 2) + (rand() % ballDegreeMax);				// In degrees
 	ballSpeedX = ballSpeed * cos(ballDir * M_PI / 180);
 	ballSpeedY = ballSpeed * -sin(ballDir * M_PI / 180);
@@ -124,8 +128,10 @@ void Game::resetAll()
 
 void Game::updateBars()
 {
+	float dt = static_cast<float>(clock.getElapsedTime().asMilliseconds());
+	
 	float bar1Dir = pressedDown - pressedUp;														// Checking left bar can move
-	float bar1Speed = moveSpeed * bar1Dir;
+	float bar1Speed = dt * moveSpeed * bar1Dir;
 
 	if (bar1.getPosition().y + bar1Speed >= 0
 		&& bar1.getPosition().y + bar1Speed <= height - bar1.getSize().y)
@@ -141,7 +147,7 @@ void Game::updateBars()
 
 	float ballRelativeY = ball.getPosition().y - (bar2.getPosition().y								// Right bar
 		+ bar2.getSize().y / 2 + aiOffset);
-	float bar2Speed = std::min(std::abs(ballRelativeY), moveSpeed)
+	float bar2Speed = std::min(std::abs(ballRelativeY), moveSpeed * dt)
 		* std::copysignf(1.f, ballRelativeY);
 
 	bar2.move(0.f, bar2Speed);
@@ -155,6 +161,8 @@ void Game::updateBars()
 
 void Game::updateBall()
 {
+	float dt = static_cast<float>(clock.getElapsedTime().asMilliseconds());
+
 	if (ball.getPosition().y >= height - ball.getRadius()											// Hitting top or bottom
 		|| ball.getPosition().y <= ball.getRadius())
 	{
@@ -205,17 +213,18 @@ void Game::updateBall()
 		}
 
 		float ratio = dif / maxDif * 45.f;
-
 		ballDir = dirAdd + ratioSign * ratio;
+		speedIncrement++;
+	}
 
-		ballSpeed += speedIncrease;
+	if (notPaused) {
+		ballSpeed = (ballSpeedOriginal + speedIncrease * speedIncrement) * dt;
 
 		ballSpeedX = ballSpeed * static_cast<float>(cos(ballDir * M_PI / 180));
 		ballSpeedY = ballSpeed * -static_cast<float>(sin(ballDir * M_PI / 180));
-	}
 
-	if (notPaused)
 		ball.move(ballSpeedX, ballSpeedY);
+	}
 
 }
 
@@ -285,6 +294,7 @@ void Game::render()
 	if (!notPaused) window->draw(txtPause);															// Drawing text
 	window->draw(txtScore);
 
+	Game::clock.restart();																			// Resetting clock to zero
 	window->display();
 }
 
