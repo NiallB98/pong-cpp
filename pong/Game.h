@@ -11,7 +11,7 @@
 class Game
 {
 private:
-	int width, height, fps, ballDegreeMax, scoreL, scoreR, speedIncrement;
+	int width, height, fps, ballDegreeMax, scoreL, scoreR, speedIncrement, lastHit;
 	float moveSpeed, pressedUp, pressedDown, aiOffset, ballSpeed,
 		ballSpeedOriginal, ballSpeedX, ballSpeedY, ballDir, speedIncrease;
 	const char* title;

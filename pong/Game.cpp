@@ -27,6 +27,8 @@ Game::Game()
 	ballSpeedX = ballSpeed * cos(ballDir * M_PI / 180);
 	ballSpeedY = ballSpeed * -sin(ballDir * M_PI / 180);
 
+	lastHit = 0;
+
 	initWindow();
 	initBars();
 	initBall();
@@ -121,6 +123,7 @@ void Game::resetAll()
 	ballSpeedY = ballSpeed * -sin(ballDir * M_PI / 180);
 
 	notPaused = false;
+	lastHit = 0;
 
 	std::string text = std::to_string(scoreL) + " | " + std::to_string(scoreR);						// String to display
 	txtScore.setString(text);
@@ -187,8 +190,8 @@ void Game::updateBall()
 		resetAll();
 	}
 
-	if (ball.getGlobalBounds().intersects(bar2.getGlobalBounds())									// Hitting either bars
-		|| ball.getGlobalBounds().intersects(bar1.getGlobalBounds()))
+	if ((ball.getGlobalBounds().intersects(bar2.getGlobalBounds()) && lastHit != 1)					// Hitting either bars
+		|| (ball.getGlobalBounds().intersects(bar1.getGlobalBounds()) && lastHit != -1))
 	{
 		ballSpeedX *= -1.f;
 		float dif, maxDif, dirAdd, ratioSign;
@@ -201,8 +204,10 @@ void Game::updateBall()
 			dif = bar1.getPosition().y + bar1.getSize().y / 2.f - ball.getPosition().y;
 			maxDif = bar1.getSize().y / 2.f;
 			soundBallHit.play();
+
+			lastHit = -1;
 		}
-		else
+		else if (ball.getGlobalBounds().intersects(bar2.getGlobalBounds()))
 		{																							// Hitting right player
 			dirAdd = 180.f;
 			ratioSign = -1.f;
@@ -210,6 +215,8 @@ void Game::updateBall()
 			dif = bar2.getPosition().y + bar2.getSize().y / 2.f - ball.getPosition().y;
 			maxDif = bar2.getSize().y / 2.f;
 			soundBallHit.play();
+
+			lastHit = 1;
 		}
 
 		float ratio = dif / maxDif * 45.f;
