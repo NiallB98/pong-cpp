@@ -50,7 +50,7 @@ END
 // ICO
 //
 
-ICON1                   ICON                     "E:\\Documents\\Programming\\C++\\tetris\\tetris\\icon\\icon.ico"
+ICON1                   ICON                     ".\\icon\\icon.ico"
 
 #endif    // English (United Kingdom) resources
 /////////////////////////////////////////////////////////////////////////////
