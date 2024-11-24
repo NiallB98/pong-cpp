@@ -22,6 +22,12 @@
     <Filter Include="Resource Files\fonts">
       <UniqueIdentifier>{6ad6919f-79c7-41f4-8e85-60aeae4518dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Objects">
+      <UniqueIdentifier>{6f15788b-8923-4b35-9520-64cb0c714c18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects">
+      <UniqueIdentifier>{d2221b79-8378-487d-91c4-c83ad3461e25}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -29,6 +35,9 @@
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball.cpp">
+      <Filter>Source Files\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -43,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="resource2.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball.h">
+      <Filter>Header Files\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

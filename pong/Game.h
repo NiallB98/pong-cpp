@@ -49,7 +49,4 @@ public:
 	void pollEvents();
 	void update();
 	void render();
-
-	sf::Clock clock;																				// To keep track of delta time use "sf::Time dt = clock.getElapsedTime();" (Use dt.asMilliseconds())
 };
-

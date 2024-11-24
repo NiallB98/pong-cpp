@@ -4,7 +4,7 @@ Game::Game()
 {
 	width = 1024;
 	height = 640;
-	fps = 144;
+	fps = 60;
 	title = "C++ Pong Game";
 
 	notPaused = false;
@@ -16,11 +16,11 @@ Game::Game()
 	scoreL = 0;
 	scoreR = 0;
 
-	moveSpeed = 0.4f;
+	moveSpeed = 6.f;
 
-	ballSpeedOriginal = 0.4f;
+	ballSpeedOriginal = 5.f;
 	ballSpeed = ballSpeedOriginal;
-	speedIncrease = 0.04f;
+	speedIncrease = 1.f;
 	speedIncrement = 0;
 	ballDegreeMax = 40;
 	ballDir = (180 * (rand() % 2)) - (ballDegreeMax / 2) + (rand() % ballDegreeMax);					// In degrees
@@ -110,13 +110,10 @@ void Game::initAudio()
 
 void Game::resetAll()
 {
-	srand(time(NULL));
 	initBars();
 	initBall();
 
-	float dt = static_cast<float>(clock.getElapsedTime().asMilliseconds());
-
-	ballSpeed = ballSpeedOriginal * dt;
+	ballSpeed = ballSpeedOriginal;
 	speedIncrement = 0;
 	ballDir = (180 * (rand() % 2)) - (ballDegreeMax / 2) + (rand() % ballDegreeMax);				// In degrees
 	ballSpeedX = ballSpeed * cos(ballDir * M_PI / 180);
@@ -131,10 +128,8 @@ void Game::resetAll()
 
 void Game::updateBars()
 {
-	float dt = static_cast<float>(clock.getElapsedTime().asMilliseconds());
-	
 	float bar1Dir = pressedDown - pressedUp;														// Checking left bar can move
-	float bar1Speed = dt * moveSpeed * bar1Dir;
+	float bar1Speed = moveSpeed * bar1Dir;
 
 	if (bar1.getPosition().y + bar1Speed >= 0
 		&& bar1.getPosition().y + bar1Speed <= height - bar1.getSize().y)
@@ -150,7 +145,7 @@ void Game::updateBars()
 
 	float ballRelativeY = ball.getPosition().y - (bar2.getPosition().y								// Right bar
 		+ bar2.getSize().y / 2 + aiOffset);
-	float bar2Speed = std::min(std::abs(ballRelativeY), moveSpeed * dt)
+	float bar2Speed = std::min(std::abs(ballRelativeY), moveSpeed)
 		* std::copysignf(1.f, ballRelativeY);
 
 	bar2.move(0.f, bar2Speed);
@@ -225,7 +220,7 @@ void Game::updateBall()
 	}
 
 	if (notPaused) {
-		ballSpeed = (ballSpeedOriginal + speedIncrease * speedIncrement) * dt;
+		ballSpeed = (ballSpeedOriginal + speedIncrease * speedIncrement);
 
 		ballSpeedX = ballSpeed * static_cast<float>(cos(ballDir * M_PI / 180));
 		ballSpeedY = ballSpeed * -static_cast<float>(sin(ballDir * M_PI / 180));
@@ -301,7 +296,6 @@ void Game::render()
 	if (!notPaused) window->draw(txtPause);															// Drawing text
 	window->draw(txtScore);
 
-	Game::clock.restart();																			// Resetting clock to zero
 	window->display();
 }
 

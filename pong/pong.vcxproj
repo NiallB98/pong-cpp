@@ -156,10 +156,12 @@ DEL "$(TargetDir)*.pdb" /Q</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Ball.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="resource1.h" />

@@ -3,8 +3,6 @@
 
 int main()
 {
-	srand(time(NULL));
-
 	Game game;
 
 	while (game.running)
